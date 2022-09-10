@@ -3,14 +3,14 @@ DROP TABLE IF EXISTS employees;
 DROP TABLE IF EXISTS roles;
 
 CREATE TABLE departments (
-    id INTEGER PRIMARY KEY, 
-    name VARCHAR(30)
+    name VARCHAR(30),
+    id INTEGER PRIMARY KEY
 );
 
 CREATE TABLE employees (
     id INTEGER PRIMARY KEY, 
-    first_name VARCHAR(30) NOT NULL, 
-    last_name VARCHAR(30) NOT NULL, 
+    first_name VARCHAR(30), 
+    last_name VARCHAR(30), 
     role_id INTEGER, 
     manager_id INTEGER
 );
