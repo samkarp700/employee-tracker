@@ -7,22 +7,27 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// app.use((req, res) => {
-//     res.status(404).end();
-// });
+// start server after DB connection
+db.connect(err => {
+    if (err) throw err;
+    console.log('Database connected.');
 
-//start server after DB connection
-// db.connect(err => {
-//     if (err) throw err;
-//     console.log('Database connected.');
+})
 
-// })
 
-app.get('/', (req, res) => {
-    res.json({
-        message: 'this is working!'
-    });
+
+db.query(`SELECT * FROM employees`, (err, rows) => {
+    console.log(rows);
 });
+
+// response for any other request (not found)
+app.use((req, res) => {
+    res.status(404).end();
+});
+
+
+
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
