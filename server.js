@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('./db/connection');
+const apiRoutes = require('./routes/apiRoutes');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -7,28 +8,20 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// start server after DB connection
-db.connect(err => {
-    if (err) throw err;
-    console.log('Database connected.');
+//use routes
+app.use('/api', apiRoutes);
 
-})
-
-
-
-db.query(`SELECT * FROM employees`, (err, rows) => {
-    console.log(rows);
-});
-
-// response for any other request (not found)
+//default response 
 app.use((req, res) => {
     res.status(404).end();
 });
 
+// start server after DB connection
+db.connect(err => {
+    if (err) throw err;
+    console.log('Database connected.');
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
 
-
-
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
 });
