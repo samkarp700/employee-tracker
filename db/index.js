@@ -1,10 +1,6 @@
-const connection = require('./connection');
 
-class DB {
-    constructor(connection) {
-        this.connection = connection;
-    }
 //department functions
+
 
 //view all 
 
@@ -26,7 +22,5 @@ class DB {
 //new employee
 
 //update employee
-}
 
 
-module.exports = new DB(connection);
