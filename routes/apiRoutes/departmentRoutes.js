@@ -6,7 +6,7 @@ const db = require('../../db/connection');
 const inputCheck = require('../../utils/inputCheck');
 
 //get all departments
-router.get('/api/departments', (req, res) => {
+router.get('/departments', (req, res) => {
     const sql = `SELECT * FROM departments`;
     db.query(sql, (err, rows) => {
         if (err) {
@@ -21,7 +21,7 @@ router.get('/api/departments', (req, res) => {
 });
 
 //select one department
-router.get('/api/departments/:id', (req, res) => {
+router.get('/departments/:id', (req, res) => {
     const sql = `SELECT * FROM departments WHERE id = ?`;
     const params = [req.params.id];
     db.query(sql, params, (err, row) => {
@@ -37,7 +37,7 @@ router.get('/api/departments/:id', (req, res) => {
 });
 
 // create a department
-router.post('/api/department', ({ body }, res) => {
+router.post('/department', ({ body }, res) => {
     const errors = inputCheck(body, 'name');
     if (errors) {
         res.status(400).json({ error: errors });
