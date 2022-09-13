@@ -32,7 +32,7 @@ INSERT INTO employees (first_name, last_name, role_id, manager_id)
     ('Bri', 'Byers', 2, 1), 
     ('Charlie', 'Colson', 1, 1), 
     ('Daniel', 'Dyer', 1, 1), 
-    ('Edith', 'Ender', 1, 1)
+    ('Edith', 'Ender', 1, 1),
     ('Francis','Fuller', 8, NULL),
     ('Greg', 'Gulf', 4, 8), 
     ('Harriet', 'Holden', 4, 8),

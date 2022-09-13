@@ -88,7 +88,7 @@ const addDep = (body) => {
             console.log(err);
             return;
         }
-        console.table(rows) 
+        console.table(result) 
         beginPrompt();
     });
 };
@@ -104,7 +104,7 @@ const allRoles = (req) => {
             res.status(500).json({ error: err.message });
             return;
         }
-        console.table(rows);
+        console.table(result);
         beginPrompt();
     });
 };
@@ -164,7 +164,7 @@ const addRole = (body) => {
             console.log(err);
             return;
         }
-        console.table(rows)
+        console.table(result)
         beginPrompt(); //want a quit function?
     });
 };
