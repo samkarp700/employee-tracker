@@ -142,14 +142,8 @@ const addRolePrompt = () => {
             type: 'list', 
             name: 'department', 
             message: 'Which department is this role in?', 
-            validate: departmentInput => {
-                if (departmentInput) {
-                    return true;
-                } else {
-                    console.log('Please select which department this role is in.');
-                    return false;
-                }
-            }
+            choices: ['Operations', 'Engineering', 'Human Resources', 'Sales']
+
         }
 
     ]) .then(addRole);
@@ -158,7 +152,7 @@ const addRolePrompt = () => {
 const addRole = (body) => {
     const errors = inputCheck(body, 'title', 'salary', 'department');
     if (errors) {
-        res.status(400).json({ error: errors });
+        console.log(errors);
         return;
     }
     const sql = `INSERT INTO roles (title, salary, department)
