@@ -104,7 +104,7 @@ const allRoles = (req) => {
             res.status(500).json({ error: err.message });
             return;
         }
-        console.table(result);
+        console.table(rows);
         beginPrompt();
     });
 };
@@ -142,7 +142,24 @@ const addRolePrompt = () => {
             type: 'list', 
             name: 'department', 
             message: 'Which department is this role in?', 
-            choices: ['Operations', 'Engineering', 'Human Resources', 'Sales']
+            choices: [
+                {
+                    name: 'Operations',
+                    value: 1
+                }, 
+                {
+                    name: 'Engineering',
+                    value: 2 
+                }, 
+                {
+                    name: 'Human Resources', 
+                    value: 3
+                },
+                {
+                    name: 'Sales', 
+                    value: 4
+                }
+            ]
 
         }
 
@@ -155,16 +172,16 @@ const addRole = (body) => {
         console.log(errors);
         return;
     }
-    const sql = `INSERT INTO roles (title, salary, department)
+    const sql = `INSERT INTO roles (title, salary, department_id)
     VALUES (?,?,?)`;
-    const params = [body.title, body.salary, body.department];
+    const params = [body.title, body.salary, body.department_id];
 
     db.query(sql, params, (err, result) => {
         if (err) {
             console.log(err);
             return;
         }
-        console.table(result)
+        console.table(result);
         beginPrompt(); //want a quit function?
     });
 };
