@@ -1,8 +1,10 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const db = require('./db/connection');
+const inputCheck = require('./utils/inputCheck');
 
-const beginPrompt = employerData => {
+
+const beginPrompt = () => {
     return inquirer.prompt([
         //start questions
         {
@@ -26,9 +28,55 @@ const beginPrompt = employerData => {
             allRoles();
         } else if (employerData.options === 'View all Employees') {
             allEmployees();
+        } else if (employerData.options === 'Add a Department') {
+            addDepPrompt();
+        } else if (employerData.options === 'Add a role') {
+            // addRole();adjust
+        } else if (employerData.options === 'Add a new employee') {
+            // addEmp();adjust
+        } else if (employerData.options === 'Update Employee') {
+            // updateEmp(); adjust
         }
-    })
+    });
+};
+
+const addDepPrompt = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name', 
+            message: 'What is the name of the department?', 
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log('Please enter the name of the department you want to add.');
+                    return false;
+                }
+            }
+        }, 
+    ]) .then(addDep);
 }
+
+const addDep = (body) => {
+    const errors = inputCheck(body, 'name');
+    if (errors) {
+        console.log(errors);
+        return;
+    }
+    const sql = `INSERT INTO departments (name)
+    VALUES (?)`;
+    const params = [body.name];
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.table(rows) 
+        beginPrompt();
+    });
+};
 //department functions
 //view all 
 const allDeps = (req) => {
@@ -39,6 +87,7 @@ const allDeps = (req) => {
             return;
         }
         console.table(rows) 
+        beginPrompt();
     });
 };
 
@@ -58,7 +107,7 @@ const allRoles = (req) => {
             return;
         }
         console.table(rows);
-
+        beginPrompt();
     });
 };
 
@@ -75,7 +124,7 @@ const allEmployees = (req) => {
             return;
         }
         console.table(rows);
-    
+        beginPrompt();
     });
 };
 
@@ -84,3 +133,4 @@ const allEmployees = (req) => {
 //update employee
 
 
+beginPrompt();
