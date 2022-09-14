@@ -235,7 +235,7 @@ const addEmpPrompt = () => {
             type: 'list', 
             name: 'roles', 
             message: 'Which role are they in?', 
-            choice: [
+            choices: [
                 {
                     name: 'Customer Support Specialist', 
                     value: 1
@@ -331,9 +331,9 @@ const addEmp = (body) => {
         return;
     }
 
-    const sql = `INSERT INTO employees (first_name, last_name, role_id, manager_id)
+    const sql = `INSERT INTO employees (first_name, last_name, roles_id, manager_id)
     VALUES (?,?,?,?)`;
-    const params = [body.first_name, body.last_name, body.role_id, body.employees];
+    const params = [body.first_name, body.last_name, body.roles, body.managers];
     console.log(body);
 
     db.query(sql, params, (err, result) => {
