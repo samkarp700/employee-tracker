@@ -35,7 +35,7 @@ const beginPrompt = () => {
         } else if (employerData.options === 'Add a new employee') {
             addEmpPrompt();
         } else if (employerData.options === 'Update Employee') {
-            // updateEmp(); adjust
+            updateEmpPrompt();
         }
     });
 };
@@ -334,7 +334,7 @@ const addEmp = (body) => {
     const sql = `INSERT INTO employees (first_name, last_name, roles_id, manager_id)
     VALUES (?,?,?,?)`;
     const params = [body.first_name, body.last_name, body.roles, body.managers];
-    console.log(body);
+    // console.log(body);
 
     db.query(sql, params, (err, result) => {
         if (err) {
@@ -348,6 +348,221 @@ const addEmp = (body) => {
 
 
 //update employee
+//start by selecting employee
 
+const updateEmpPrompt = () => {
+    return inquirer.prompt([
+        {
+            type: 'list', 
+            name: 'current', 
+            message: 'Which employee is changing roles?', 
+            choices: [
+                {
+                    name: 'Michael Scott', 
+                    value: 1
+                }, 
+                {
+                    name: 'Sally Seashells', 
+                    value: 2
+                }, 
+                {
+                    name: 'Aaron Ables', 
+                    value: 3
+                }, 
+                {
+                    name: 'Bri Byers', 
+                    value: 4
+                }, 
+                {
+                    name: 'Charlie Colson', 
+                    value: 5
+                }, 
+                {
+                    name: 'Daniel Dyer', 
+                    value: 6
+                }, 
+                {
+                    name: 'Edith Ender', 
+                    value: 7
+                }, 
+                {
+                    name: 'Francis Fuller', 
+                    value: 8
+                }, 
+                {
+                    name: 'Greg Gulf', 
+                    value: 9
+                }, 
+                {
+                    name: 'Harriet Holden', 
+                    value: 10
+                }, 
+                {
+                    name: 'Irene Igloo', 
+                    value: 11
+                }, 
+                {
+                    name: 'Jack Jordan', 
+                    value: 12
+                }, 
+                {
+                    name: 'Kyle Kooley', 
+                    value: 13
+                }, 
+                {
+                    name: 'Loren Logan', 
+                    value: 14
+                }, 
+                {
+                    name: 'Mary Mulligan', 
+                    value: 15
+                }, 
+                {
+                    name: 'Nancy Nelson', 
+                    value: 16
+                }, 
+                {
+                    name: 'Orville Organ', 
+                    value: 17
+                }, 
+                {
+                    name: 'Polly Pocket', 
+                    value: 18
+                }, 
+                {
+                    name: 'Quintin Quail', 
+                    value: 19
+                }, 
+                {
+                    name: 'Robby Rogers', 
+                    value: 20
+                }, 
+                {
+                    name: 'Sully Sylvester', 
+                    value: 21
+                }, 
+                {
+                    name: 'Theo Tyler', 
+                    value: 22
+                }, 
+                {
+                    name: 'Ursula Ulysses', 
+                    value: 23
+                }, 
+                {
+                    name: 'Vernon Voldemort', 
+                    value: 24
+                }, 
+                {
+                    name: 'Waylon Wilder', 
+                    value: 25
+                }, 
+                {
+                    name: 'Xavier Xylon', 
+                    value: 26
+                }, 
+                {
+                    name: 'Yvonne Yale', 
+                    value: 27
+                }, 
+                {
+                    name: 'Zelda Zion', 
+                    value: 28
+                }
+            ]
+
+        },
+        {
+            type: 'list', 
+            name: 'updateRoles', 
+            message: 'Your employee has been promoted! What is their new role?',
+            choices: [
+                {
+                    name: 'Customer Support Specialist', 
+                    value: 1
+                }, 
+                {
+                    name: 'Customer Success Manager', 
+                    value: 2
+                }, 
+                {
+                    name: 'Operations Manager', 
+                    value: 3
+                }, 
+                {
+                    name: 'Software Engineer', 
+                    value: 4
+                }, 
+                {
+                    name: 'Project Manager', 
+                    value: 5
+                }, 
+                {
+                    name: 'Customer Success Engineer', 
+                    value: 6
+                }, 
+                {
+                    name: 'Mobile App Developer', 
+                    value: 7
+                }, 
+                {
+                    name: 'Engineer Lead', 
+                    value: 8
+                }, 
+                {
+                    name: 'Recruiter', 
+                    value: 9
+                }, 
+                {
+                    name: 'Trainer', 
+                    value: 10
+                }, 
+                {
+                    name: 'Payroll Coordinator', 
+                    value: 11
+                }, 
+                {
+                    name: 'Human Resources Manager', 
+                    value: 12
+                }, 
+                {
+                    name: 'SDR', 
+                    value: 13
+                }, 
+                {
+                    name: 'Payment Consultant', 
+                    value: 14
+                }, 
+                {
+                    name: 'Sales Lead', 
+                    value: 15
+                }
+            ]
+        }
+    ]).then(updateEmp);
+}
+const updateEmp = (body) => {
+    // const errors = inputCheck(req.body);
+    // if (errors) {
+    //     console.log(errors);
+    //     return;
+    // }
+    const sql = `UPDATE employees WHERE id = ?
+    VALUES(?)`;
+    const params = [body.employees, body.roles];
+    console.log(body);
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else if (!result.affectedRows) {
+            console.log('Candidate not found!');
+        
+        } else {
+            console.table(result);
+            beginPrompt();
+        };
+    });
+};
+   
 
 beginPrompt();
