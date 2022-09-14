@@ -549,7 +549,9 @@ const updateEmp = (body) => {
         return;
     }
 
-    const sql = `UPDATE employees SET ${body.updateRoles} WHERE id = ${body.current} `;
+    const sql = `UPDATE employees 
+    SET roles_id = ${body.updateRoles} 
+    WHERE id = ${body.current} `;
     const params = [body.current, body.updateRoles];
     console.log(body);
     db.query(sql, params, (err, result) => {
