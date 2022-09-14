@@ -140,7 +140,7 @@ const addRolePrompt = () => {
         }, 
         {
             type: 'list', 
-            name: 'department', 
+            name: 'departments', 
             message: 'Which department is this role in?', 
             choices: [
                 {
@@ -167,14 +167,15 @@ const addRolePrompt = () => {
 }
 
 const addRole = (body) => {
-    const errors = inputCheck(body, 'title', 'salary', 'department');
+    const errors = inputCheck(body, 'title', 'salary', 'departments');
     if (errors) {
         console.log(errors);
         return;
     }
-    const sql = `INSERT INTO roles (title, salary, department_id)
+    const sql = `INSERT INTO roles (title, salary, departments_id)
     VALUES (?,?,?)`;
-    const params = [body.title, body.salary, body.department_id];
+    const params = [body.title, body.salary, body.departments];
+    console.log(body);
 
     db.query(sql, params, (err, result) => {
         if (err) {
@@ -182,7 +183,7 @@ const addRole = (body) => {
             return;
         }
         console.table(result);
-        beginPrompt(); //want a quit function?
+        beginPrompt(); 
     });
 };
 

@@ -6,7 +6,7 @@ INSERT INTO departments (name)
     ('Sales');
 
 
-INSERT INTO roles (title, salary, department_id)
+INSERT INTO roles (title, salary, departments_id)
     VALUES
     ('Customer Support Specialist', 40000, 1), 
     ('Customer Success Manager', 60000, 1), 
@@ -24,7 +24,7 @@ INSERT INTO roles (title, salary, department_id)
     ('Payment Consultant', 100000, 4), 
     ('Sales Lead', 150000, 4);
 
-INSERT INTO employees (first_name, last_name, role_id, manager_id)
+INSERT INTO employees (first_name, last_name, roles_id, manager_id)
     VALUES
     ('Michael', 'Scott', 3, NULL), 
     ('Sally', 'Seashells', 2, 1), 
