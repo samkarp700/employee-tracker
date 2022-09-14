@@ -539,17 +539,18 @@ const updateEmpPrompt = () => {
                 }
             ]
         }
-    ]).then(updateEmp);
+    ])
+    .then(updateEmp);
 }
 const updateEmp = (body) => {
-    // const errors = inputCheck(req.body);
-    // if (errors) {
-    //     console.log(errors);
-    //     return;
-    // }
-    const sql = `UPDATE employees WHERE id = ?
-    VALUES(?)`;
-    const params = [body.employees, body.roles];
+    const errors = inputCheck(body, 'current', 'updateRoles');
+    if (errors) {
+        console.log(errors);
+        return;
+    }
+
+    const sql = `UPDATE employees WHERE id = ${body.current} SET ${body.updateRoles}`;
+    const params = [body.current, body.updateRoles];
     console.log(body);
     db.query(sql, params, (err, result) => {
         if (err) {
@@ -563,6 +564,6 @@ const updateEmp = (body) => {
         };
     });
 };
-   
+
 
 beginPrompt();
