@@ -5,3 +5,6 @@ Lastly, an employer can choose to update an employee's role by selecting the opt
 
 ## Check it out! 
 Please see the following video for a walk-through on how an employer can use this tracker! 
+
+https://user-images.githubusercontent.com/105761973/190054689-76f69aaa-8700-4840-8938-c9dcea133ab1.mp4
+
